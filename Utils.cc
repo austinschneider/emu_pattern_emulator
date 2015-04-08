@@ -24,7 +24,6 @@ namespace utils {
 
 int file_size(FILE *fp) {
   /* Returns the size of a file */
-
   int size;
   fseek(fp, 0, SEEK_END);
   size = ftell(fp);
@@ -91,7 +90,6 @@ int get_pattern(char* filename, char **buf, int verbose) {
 void dumphex(int n, char* buf, std::ostream* s) {
   int i;
   for (i = 0; i < n; i++) {
-    //printf("%02x ",0xff&buf[i]);
     *s << HEX(0xff & buf[i]) << " ";
   }
   *s << std::dec << std::setfill(' '); // back to default formatting

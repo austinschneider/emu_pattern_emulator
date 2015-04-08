@@ -18,12 +18,12 @@ namespace pc {
 class Eth {
   int fd_schar;
 
-  char wpkt[4 + MAX_DAT_SIZE]; /* full packet to send (header+data) */
-  char *wdat; /* buffer with data to send */
-  char rpkt[18 + MAX_DAT_SIZE]; /* full packet read (header+data) */
-  char *rdat; /* buffer with data read */
-  int nwdat; /* number of data bytes to send */
-  int nrdat; /* number of data bytes read */
+  char wpkt[4 + MAX_DAT_SIZE]; // full packet to send (header+data)
+  char *wdat; // buffer with data to send
+  char rpkt[18 + MAX_DAT_SIZE]; // full packet read (header+data)
+  char *rdat; // buffer with data read
+  int nwdat; // number of data bytes to send
+  int nrdat; // number of data bytes read
 
 public:
   inline Eth() {
@@ -36,7 +36,6 @@ public:
   }
 
   int eth_open(const char *dev_name);
-  int eth_register_mac();
   void eth_close();
   int eth_reset();
   int eth_read(int suppression);
