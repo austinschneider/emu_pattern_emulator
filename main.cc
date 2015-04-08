@@ -41,16 +41,22 @@ void convert(std::istream & is, std::string prefix = "", char sep = '|') {
     int layers = 0;
     char c = 0;
 
+    std::vector<int> c_count;
+
     is >> l >> l;
     clear_until(is, sep);
     std::stringstream ss;
-    ss << "CFEB_" << n << ".pat";
+    ss << prefix << "CFEB_" << n << ".pat";
     oss.push_back(new std::fstream(ss.str().c_str(), std::ios_base::out));
+    c_count.push_back(0);
     while(is) {
         c = get_next(is, sep);
         if(!is)
             break;
         (*(oss[n])) << c;
+        ++c_count[n];
+        if(c_count[n] % 6 == 0)
+            (*(oss[n])) << char(0) << char(0);
         ++layers;
         if(is.peek() == '\n' || is.peek() == '\r')
             break;
@@ -64,6 +70,7 @@ void convert(std::istream & is, std::string prefix = "", char sep = '|') {
             std::stringstream ss;
             ss << prefix << "CFEB_" << n << ".pat";
             oss.push_back(new std::fstream(ss.str().c_str(), std::ios_base::out));
+            c_count.push_back(0);
             ++n;
         }
         while(is) {
@@ -71,6 +78,9 @@ void convert(std::istream & is, std::string prefix = "", char sep = '|') {
             if(!is)
                 break;
             (*(oss[l])) << c;
+            ++c_count[l];
+            if(c_count[l] % 6 == 0)
+                (*(oss[l])) << char(0) << char(0);
             if(is.peek() == '\n' || is.peek() == '\r')
                 break;
         }
@@ -99,9 +109,6 @@ int main(int argc, char * argv[]) {
             break;
         }
     }
-    std::cout << file_name << std::endl;
-    
-
 
     convert(text_file, file_name);
 
